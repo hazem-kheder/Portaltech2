@@ -22,6 +22,10 @@ class ListClass extends AbstractItems
     }
 
 
+    /**
+     * @param $id
+     * @return array
+     */
     function getOneItem($id)
     {
         $db = $this->getPDO();

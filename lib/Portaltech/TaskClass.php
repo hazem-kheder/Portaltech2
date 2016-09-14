@@ -29,6 +29,10 @@ class TaskClass extends AbstractItems
         return $ListArray;
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
     function getOneItem($id)
     {
         $db = $this->getPDO();
