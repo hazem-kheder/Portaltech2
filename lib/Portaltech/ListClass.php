@@ -1,24 +1,36 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Pc
- * Date: 9/14/2016
- * Time: 05:55 م
- */
 
 namespace Portaltech;
 
 
 class ListClass extends AbstractItems
 {
+
+    /**
+     * @return array
+     */
     function getItems()
     {
-        // TODO: Implement getItems() method.
+        $db = $this->getPDO();
+
+        $sql = $db->prepare("SELECT * FROM list LIMIT 0,20");
+        $sql->execute();
+        $ListArray = $sql->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $ListArray;
+
     }
+
 
     function getOneItem($id)
     {
-        // TODO: Implement getOneItem() method.
+        $db = $this->getPDO();
+
+        $sql = $db->prepare("SELECT * FROM list WHERE id = :id");
+        $sql->execute(array('id'=>$id));
+        $ListArray = $sql->fetch(\PDO::FETCH_ASSOC);
+
+        return $ListArray;
     }
 
     function __call($name, $arguments)

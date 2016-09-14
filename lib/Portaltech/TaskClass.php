@@ -11,16 +11,39 @@ namespace Portaltech;
 
 class TaskClass extends AbstractItems
 {
+    private $listID;
+
+    public function __construct($listID)
+    {
+        $this->listID = $listID;
+    }
+
     function getItems()
     {
-        // TODO: Implement getItems() method.
+        $db = $this->getPDO();
+
+        $sql = $db->prepare("SELECT * FROM task WHERE 	list_id = :list_id LIMIT 0,20");
+        $sql->execute(array('list_id'=>$this->listID));
+        $ListArray = $sql->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $ListArray;
     }
 
     function getOneItem($id)
     {
-        // TODO: Implement getOneItem() method.
+        $db = $this->getPDO();
+
+        $sql = $db->prepare("SELECT * FROM task WHERE list_id = :id");
+        $sql->execute(array('id'=>$id));
+        $ListArray = $sql->fetch(\PDO::FETCH_ASSOC);
+
+        return $ListArray;
     }
 
+    public function getListID()
+    {
+        return $this->listID;
+    }
     function __call($name, $arguments)
     {
         // TODO: Implement __call() method.
